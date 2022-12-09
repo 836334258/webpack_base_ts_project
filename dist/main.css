@@ -1,0 +1,13 @@
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./node_modules/less-loader/dist/cjs.js!./src/index.less ***!
+  \*******************************************************************************************************************************************************************************/
+body {
+  background: red;
+  box-shadow: 1px 1px 1px salmon;
+}
+body div {
+  font-size: 12px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+

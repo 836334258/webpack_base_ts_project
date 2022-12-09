@@ -1,17 +1,42 @@
 const path=require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports= {
   mode: 'development',
-  entry: path.resolve(__dirname,'./src/index.ts'),
-  experiments: {
-    outputModule: true,
-  },
+  entry: './src/index.ts',
   output: {
     filename: `index.js`,
-    path: path.resolve('dist')
+    path: path.resolve('dist'),
+    clean:true,
+    iife:false,
+    library:{
+      type: 'window',
+    }
   },
   module: {
     rules: [
+      {
+        test: /\.less$/i,
+        use: [
+          // compiles Less to CSS
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env'
+                  ],
+                ],
+              },
+            },
+          },
+          "less-loader",
+        ],
+      },
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
@@ -35,6 +60,14 @@ module.exports= {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title:'test',
+      filename:'index.html',
+      template:'index.html'
+    }),
+    new MiniCssExtractPlugin()
+  ],
   resolve: {
     extensions: ['.ts', '.js', '.mjs'], // 引入文件可以不用加后缀名
     alias: {
@@ -42,11 +75,12 @@ module.exports= {
     },
   },
   devServer: {
+    compress:false,
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.join(__dirname, 'dist')
     },
-    compress: true,
-    port: 8080,
+    port: 3000,
+    hot:true
   },
-  devtool: 'source-map',
+  devtool: false,
 } 

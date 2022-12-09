@@ -1,1 +1,2 @@
-console.log(123);
+import './index.less'
+console.log(1234);
